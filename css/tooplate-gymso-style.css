@@ -450,9 +450,9 @@ https://www.tooplate.com/view/2119-gymso-fitness
 
   .table .thead-light th,
   .schedule-table tr td:first-child {
-    background: var(--primary-color);
+    background: var(--dark-color);
     border: 1px solid #212122;
-    color: var(--white-color);
+    color: var(--primary-color);
   }
 
   .schedule-table .thead-light th {
