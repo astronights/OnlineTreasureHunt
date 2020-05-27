@@ -62,7 +62,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
 
 
   body {
-    background: var(--white-color);
+    background: var(--dark-color);
     font-family: var(--base-font-family);
   }
 
@@ -479,7 +479,7 @@ https://www.tooplate.com/view/2119-gymso-fitness
   -----------------------------------------*/
 
   .about {
-    background: var(--about-bg-color);
+    background: var(--dark-color);
   }
 
   .about-working-hours {
