@@ -16,6 +16,7 @@
      <link rel="stylesheet" type="text/css" href="css/aos.css">
 
      <link rel="stylesheet" type="text/css" href="css/tooplate-gymso-style.css">
+     <link rel="stylesheet" type="text/css" href="css/styles.css">
 
 </head>
 <body data-spy="scroll" data-target="#navbarNav" data-offset="50">
@@ -34,7 +35,11 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-lg-auto">
                     <li class="nav-item">
-                        <a href="index.html" class="nav-link smoothScroll">Home</a>
+                        <a href="/home" class="nav-link smoothScroll">Home</a>
+                    </li>
+
+                    <li class="nav-item play-game">
+                        <a href="/level" class="nav-link smoothScroll">Game</a>
                     </li>
 
                     <li class="nav-item">
@@ -46,7 +51,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="leaderboard.html" class="nav-link smoothScroll">Leaderboard</a>
+                        <a href="/leaderboard" class="nav-link smoothScroll">Leaderboard</a>
                     </li>
 
                 </ul>
@@ -72,9 +77,11 @@
 
                                     <h1 class="text-white" data-aos="fade-up" data-aos-delay="500">Upgrade your body at Gymso Fitness</h1>
 
-                                    <a href="#signup" class="btn custom-btn mt-3" data-aos="fade-up" data-aos-delay="600">Sign Up</a>
+                                    <a href="#signup" class="btn custom-btn mt-3 reg" data-aos="fade-up" data-aos-delay="600">Sign Up</a>
 
-                                    <a href="#signup" class="btn custom-btn bordered mt-3" data-aos="fade-up" data-aos-delay="700">Log In</a>
+                                    <a href="#signup" class="btn custom-btn bordered mt-3 reg" data-aos="fade-up" data-aos-delay="700">Log In</a>
+
+                                    <a href="/level" class="btn custom-btn bordered mt-3 play-game" data-aos="fade-up" data-aos-delay="700">Log In</a>
 
                               </div>
                          </div>
@@ -107,7 +114,7 @@
                         <h2 class="mb-4 text-white" data-aos="fade-up" data-aos-delay="200">Log In</h2>
 
                         <form action="#" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form" id="login-form">
-                            <input type="text" class="form-control" name="username" placeholder="Username">
+                            <input type="text" class="form-control" name="email" placeholder="Email">
                             <input type="password" class="form-control" name="password" placeholder="Password">
 
                             <button type="submit" class="form-control submit-button" id="login-submit" name="submit">Log In</button>
@@ -275,6 +282,7 @@
      <script src="js/aos.js"></script>
      <script src="js/smoothscroll.js"></script>
      <script src="js/custom.js"></script>
+     <script src="js/jquery.serializejson.js"></script>
 
      <script src="js/index.js"></script>
 

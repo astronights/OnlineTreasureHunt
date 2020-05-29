@@ -1,7 +1,7 @@
 const mongoose = require('../db');
 
 const userSchema = mongoose.Schema({
-    level_id: String,
+    level_num: Number,
     level_text: [String],
     level_images: [String],
     level_times: [Date],
