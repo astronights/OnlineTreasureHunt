@@ -73,7 +73,7 @@ passport.use('login', new LocalStrategy({
                 {'message': 'User Not found.'});
         }
         else{
-        bcrypt.compare(user.password, hash, function(err, res) {
+        bcrypt.compare(password, user.password, function(err, res) {
           if(err){
             throw err;
           }

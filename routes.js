@@ -11,10 +11,13 @@ var leaderboard = require('./controllers/leaderboard');
 var addlevel = require('./controllers/addlevel');
 
 router.get('/home', home);
-router.get('/level', level);
+router.get('/level/:name', level)
+// router.get('/level', level);
 router.get('/leaderboard', leaderboard);
 router.post('/signup', signup);
 router.post('/login', login);
 router.post('/addlevel', addlevel);
+
+// shbkankar.com/level1
 
 module.exports = router;
