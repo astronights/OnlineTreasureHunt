@@ -1,11 +1,11 @@
 const mongoose = require('../db');
 
-const userSchema = mongoose.Schema({
+const tokenSchema = mongoose.Schema({
     email: String,
-    token: [String],
+    tokens: [String],
     created: {
       type: Date,
       default: Date.now
 }});
 
-module.exports = mongoose.model('User', userSchema, 'users');
+module.exports = mongoose.model('Token', tokenSchema, 'tokens');

@@ -3,6 +3,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var flash = require('flash');
+var cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
@@ -20,6 +21,7 @@ const mimeTypes = {
 }
 
 app.use(express.static("public/"));
+app.use(cookieParser());
 //
 // app.use(session({ cookie: { maxAge: 60000 },
 //                   secret: process.env.SESSION_SECRET,

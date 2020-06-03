@@ -11,7 +11,7 @@ var leaderboard = require('./controllers/leaderboard');
 var addlevel = require('./controllers/addlevel');
 
 router.get('/home', home);
-router.get('/level', level);
+router.get('/levels/:name', level);
 router.get('/leaderboard', leaderboard);
 router.post('/signup', signup);
 router.post('/login', login);
