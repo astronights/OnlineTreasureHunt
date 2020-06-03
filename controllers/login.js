@@ -1,5 +1,4 @@
 var express = require('express');
-var bcrypt = require('bcrypt');
 var path = require('path');
 var passport = require('../passportFun');
 var crypto = require('crypto');
