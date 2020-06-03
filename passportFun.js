@@ -32,11 +32,11 @@ passport.use('signup', new LocalStrategy({
                 {'message': 'Display name already exists'});
             }
             else{
-              bcrypt.genSalt(process.env.SALTS, function(err2, salt) {
+              bcrypt.genSalt(parseInt(process.env.SALTS), function(err2, salt) {
                 bcrypt.hash(password, salt, function(err2, hash) {
                   var newUser = new User();
                   newUser.username = req.body.username;
-                  newUser.password = createHash(password);
+                  newUser.password = hash;
                   newUser.email = email;
                   newUser.display_name = [req.body.fname, req.body.lname];
                   newUser.current_level = 0;

@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path');
 var passport = require('../passportFun');
 const User = require('../models/User');
 
@@ -10,7 +11,7 @@ module.exports = (req, res) => {
       res.json({"message": info.message});
     }
     else{
-      res.render(path.join(__dirname, "../views/index.ejs"), {"success": true});
+      res.render(path.join(__dirname, "../views/index.ejs"), {"success": false});
     }
   })(req, res);
 };

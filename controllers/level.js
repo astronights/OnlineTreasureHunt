@@ -39,7 +39,8 @@ module.exports = (req, res) => {
               if(user.current_level + 1 >= level.level_num){
                 if(user.current_level + 1 == level.level_num){
                   User.findByIdAndUpdate(user._id, {
-                    "current_level": level.level_num
+                    "current_level": level.level_num,
+                    "$push": {"level_times": Date.now()} 
                   }, function(err3, updated_user){
                     if(err3){
                       console.log("Error in updating user");

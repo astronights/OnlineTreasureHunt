@@ -42,6 +42,7 @@ module.exports = (req, res) => {
         else{
           Token.findByIdAndUpdate(token_user._id,{
             "$push": {"tokens": user_token}
+            
           }, function(err, updated_user){
               if(err){
                 console.log("Error in updating user token");
