@@ -35,6 +35,7 @@ module.exports = (req, res) => {
               res.json({"message": "No level exists"});
             }
             else{
+              req.url = '/level/' + level.level_key;
               res.render(path.join(__dirname, "../views/level.ejs"), {level: level});
             }
           });

@@ -103,11 +103,11 @@
                        <h2 class="mb-4 text-white" data-aos="fade-up" data-aos-delay="300">Sign Up</h2>
 
                        <form action="/signup" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form" id="signup-form">
-                         <input type="text" class="form-control" name="fname" placeholder="First Name">
-                         <input type="text" class="form-control" name="lname" placeholder="Last Name">
-                         <input type="text" class="form-control" name="email" placeholder="Email ID">
-                         <input type="text" class="form-control" name="username" placeholder="Display name">
-                         <input type="password" class="form-control" name="password" placeholder="Password">
+                         <input required type="text" class="form-control" name="fname" placeholder="First Name">
+                         <input required type="text" class="form-control" name="lname" placeholder="Last Name">
+                         <input required type="text" class="form-control" name="email" placeholder="Email ID">
+                         <input required type="text" class="form-control" name="username" placeholder="Display name">
+                         <input required type="password" class="form-control" name="password" placeholder="Password">
 
                           <button type="submit" class="form-control submit-button" id="signup-submit" name="submit">Sign Up</button>
                        </form>
@@ -117,8 +117,8 @@
                         <h2 class="mb-4 text-white" data-aos="fade-up" data-aos-delay="200">Log In</h2>
 
                         <form action="/login" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form" id="login-form">
-                            <input type="text" class="form-control" name="email" placeholder="Email">
-                            <input type="password" class="form-control" name="password" placeholder="Password">
+                            <input required type="text" class="form-control" name="email" placeholder="Email">
+                            <input required type="password" class="form-control" name="password" placeholder="Password">
 
                             <button type="submit" class="form-control submit-button" id="login-submit" name="submit">Log In</button>
                         </form>

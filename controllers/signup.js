@@ -5,8 +5,10 @@ const User = require('../models/User');
 
 module.exports = (req, res) => {
   passport.authenticate('signup', (err, user, info) => {
+    console.log(user);
+    console.log(info);
     if(user == false){
-      res.json({"message": "User already exists"});
+      res.json({"message": info.message});
     }
     else{
       res.render(path.join(__dirname, "../views/index.ejs"), {"success": true});

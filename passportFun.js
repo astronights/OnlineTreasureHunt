@@ -6,6 +6,7 @@ var User = require("./models/User");
 passport.use('signup', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
+    session: false,
     passReqToCallback : true
   },
   function(req, email, password, done) {
@@ -18,20 +19,21 @@ passport.use('signup', new LocalStrategy({
         else if (user) {
           console.log('User already exists');
           return done(null, false,
-             req.flash('message','User Already Exists'));
+             {'message': 'Email ID Already Exists'});
         } else {
-          User.findOne({'username': req.body.username}, function(err, user1){
-            if(err){
+          User.findOne({'username': req.body.username}, function(err1, user1){
+            if(err1){
               console.log('Error in SignUp: ' + err);
-              throw err;
+              throw err1;
             }
             else if(user1){
               console.log('Display name already exists');
-              return(done, null, false, req.flash('message', 'Display name already exists'));
+              return done(null, false,
+                {'message': 'Display name already exists'});
             }
             else{
-              bcrypt.genSalt(process.env.SALTS, function(err, salt) {
-                bcrypt.hash(password, salt, function(err, hash) {
+              bcrypt.genSalt(process.env.SALTS, function(err2, salt) {
+                bcrypt.hash(password, salt, function(err2, hash) {
                   var newUser = new User();
                   newUser.username = req.body.username;
                   newUser.password = createHash(password);
@@ -39,10 +41,10 @@ passport.use('signup', new LocalStrategy({
                   newUser.display_name = [req.body.fname, req.body.lname];
                   newUser.current_level = 0;
 
-                  newUser.save(function(err) {
-                    if (err){
+                  newUser.save(function(err3) {
+                    if (err3){
                       console.log('Error in Saving user: '+err);
-                      throw err;
+                      throw err3;
                     }
                     console.log('User Registration succesful');
                     return done(null, newUser);
@@ -75,9 +77,9 @@ passport.use('login', new LocalStrategy({
                 {'message': 'User Not found.'});
         }
         else{
-        bcrypt.compare(password, user.password, function(err, res) {
-          if(err){
-            throw err;
+        bcrypt.compare(password, user.password, function(err1, res) {
+          if(err1){
+            throw err1;
           }
           else if(res == false){
             console.log('Wrong credentials '+ email);

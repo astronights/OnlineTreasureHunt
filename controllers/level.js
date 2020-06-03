@@ -39,18 +39,22 @@ module.exports = (req, res) => {
               if(user.current_level + 1 >= level.level_num){
                 if(user.current_level + 1 == level.level_num){
                   User.findByIdAndUpdate(user._id, {
-                    "user.current_level": level.level_num
+                    "current_level": level.level_num
                   }, function(err3, updated_user){
                     if(err3){
                       console.log("Error in updating user");
                       throw err3;
                     }
                     else{
+                      console.log(user);
+                      console.log("Updated level");
                       res.render(path.join(__dirname, "../views/level.ejs"), {level: level});
                     }
                   })
                 }
-                res.render(path.join(__dirname, "../views/level.ejs"), {level: level});
+                else{
+                    res.render(path.join(__dirname, "../views/level.ejs"), {level: level});
+                }
 
               }
               else{
