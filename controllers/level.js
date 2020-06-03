@@ -16,19 +16,21 @@ module.exports = (req, res) => {
       res.json({"message": "Incorrect answer"});
     }
     else{
-      Token.find({"tokens": token}, function(err1, user_token){
+      Token.findOne({"tokens": token}, function(err1, user_token){
         if(err1){
           console.log("Error in finding token");
-          throw err;
+          throw err1;
         }
         else if(!user_token){
           res.json({"message": "User not logged in"});
         }
         else{
           User.findOne({'email': user_token.email}, function(err2, user){
+            console.log(token);
+            console.log(user_token.email);
             if(err2){
               console.log("Error in finding user");
-              throw err;
+              throw err2;
             }
             else if(!user){
               res.json({"message": "No such user exists"});
@@ -39,16 +41,16 @@ module.exports = (req, res) => {
                   User.findByIdAndUpdate(user._id, {
                     "user.current_level": level.level_num
                   }, function(err3, updated_user){
-                    if(err){
+                    if(err3){
                       console.log("Error in updating user");
-                      throw err;
+                      throw err3;
                     }
                     else{
-                      res.render(path.join(__dirname, "../views/level.ejs"), level);
+                      res.render(path.join(__dirname, "../views/level.ejs"), {level: level});
                     }
                   })
                 }
-                res.render(path.join(__dirname, "../views/level.ejs"), level);
+                res.render(path.join(__dirname, "../views/level.ejs"), {level: level});
 
               }
               else{
