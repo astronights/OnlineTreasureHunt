@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 
+var User = require('../models/User');
 var Token = require('../models/Token');
 
 module.exports = (req, res) => {
@@ -14,6 +15,18 @@ module.exports = (req, res) => {
         res.render(path.join(__dirname, "../views/index.ejs"), {"success": false});
       }
       else{
-          res.render(path.join(__dirname, "../views/index.ejs"), {"success": true});
+          User.findOne({"email": user_token.email}, function(err2, user){
+            if(err2){
+              console.log("Error in finding user");
+              throw err2;
+            }
+            else if(!user){
+              res.render(path.join(__dirname, "../views/index.ejs"), {"success": false});
+            }
+            else{
+              res.render(path.join(__dirname, "../views/index.ejs"), {"success": true});
+            }
+          });
       }
+    });
 }
