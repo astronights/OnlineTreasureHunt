@@ -36,13 +36,13 @@ module.exports = (req, res) => {
           }
           console.log('Token Registration succesful');
           res.cookie('token', user_token);
-          res.render(path.join(__dirname, "../views/index.ejs"), {"success": true});
+          res.render(path.join(__dirname, "../views/index.ejs"), {"data": {"success": true}});
           });
         }
         else{
           Token.findByIdAndUpdate(token_user._id,{
             "$push": {"tokens": user_token}
-            
+
           }, function(err, updated_user){
               if(err){
                 console.log("Error in updating user token");
@@ -51,7 +51,7 @@ module.exports = (req, res) => {
               else{
                 console.log('Token Registration succesful');
                 res.cookie('token', user_token);
-                res.render(path.join(__dirname, "../views/index.ejs"), {"success": true});
+                res.render(path.join(__dirname, "../views/index.ejs"), {"data": {"success": true}});
               }
           });
         }

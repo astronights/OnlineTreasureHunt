@@ -47,7 +47,8 @@ passport.use('signup', new LocalStrategy({
                       throw err3;
                     }
                     console.log('User Registration succesful');
-                    return done(null, newUser);
+                    return done(null, newUser,
+                    {'message': 'Successful registration, please login to play!'});
                   });
                 });
               });

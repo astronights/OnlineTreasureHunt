@@ -12,7 +12,7 @@ module.exports = (req, res) => {
         throw err1;
       }
       else if(!user_token){
-        res.render(path.join(__dirname, "../views/index.ejs"), {"success": false});
+        res.render(path.join(__dirname, "../views/index.ejs"), {"data": {"success": false}});
       }
       else{
           User.findOne({"email": user_token.email}, function(err2, user){
@@ -21,10 +21,10 @@ module.exports = (req, res) => {
               throw err2;
             }
             else if(!user){
-              res.render(path.join(__dirname, "../views/index.ejs"), {"success": false});
+              res.render(path.join(__dirname, "../views/index.ejs"), {"data": {"success": false}});
             }
             else{
-              res.render(path.join(__dirname, "../views/index.ejs"), {"success": true});
+              res.render(path.join(__dirname, "../views/index.ejs"), {"data": {"success": true}});
             }
           });
       }

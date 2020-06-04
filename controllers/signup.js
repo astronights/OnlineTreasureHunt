@@ -5,13 +5,14 @@ const User = require('../models/User');
 
 module.exports = (req, res) => {
   passport.authenticate('signup', (err, user, info) => {
-    console.log(user);
-    console.log(info);
     if(user == false){
-      res.json({"message": info.message});
+      // return res.json({"success": false, "account_made": false, "message": info.message});
+      return res.render(path.join(__dirname, "../views/index.ejs"),
+      {"data": {"success": false, "account_made": false, "message": info.message}});
     }
     else{
-      res.render(path.join(__dirname, "../views/index.ejs"), {"success": false});
+      res.render(path.join(__dirname, "../views/index.ejs"),
+      {"data": {"success": false, "account_made": true, "message": info.message}});
     }
   })(req, res);
 };
