@@ -65,6 +65,11 @@
             <strong>Sign up succesful!</strong> <%= data.message %>
           </div>
           <% } %>
+          <% if(data.hasOwnProperty("logged_in") && (data.logged_in == true)){ %>
+            <div class="alert alert-success">
+               <strong>Sign up succesful!</strong> <%= data.message %>
+             </div>
+             <% } %>
             <div class="bg-overlay"></div>
 
                <div class="container">
@@ -124,7 +129,11 @@
 
                     <div class="ml-auto col-lg-5 col-md-6 col-12">
                         <h2 class="mb-4 text-white" data-aos="fade-up" data-aos-delay="200">Log In</h2>
-
+                        <% if(data.hasOwnProperty("logged_in") && (data.logged_in == false)){ %>
+                          <div class="alert alert-danger">
+                             <strong>Sign up unsuccesful!</strong> <%= data.message %>
+                           </div>
+                           <% } %>
                         <form action="/login" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form" id="login-form">
                             <input required type="text" class="form-control" name="email" placeholder="Email">
                             <input required type="password" class="form-control" name="password" placeholder="Password">
@@ -298,7 +307,7 @@
      <script src="js/custom.js"></script>
      <script src="js/jquery.serializejson.js"></script>
 
-     <!-- <script src="js/index.js"></script> -->
+     <script src="js/index.js"></script>
 
 </body>
 </html>
