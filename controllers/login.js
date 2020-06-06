@@ -10,16 +10,20 @@ module.exports = (req, res) => {
     if(user == false){
       // req.flash("messages", { "error" : "Invalid username or password" });
       // res.locals.messages = req.flash();
-      return res.render(path.join(__dirname, "../views/index.ejs"),
-      {"data": {"success": false, "logged_in": false, "message": "Invalid credentials"}});
+      req.session.locals = {"data": {"success": false,
+                                     "logged_in": false,
+                                     "message": "Invalid credentials"}};
+      return res.redirect('/home');
     }
     else{
       const user_token = crypto.randomBytes(20).toString('hex');
       Token.findOne({'email': user.email}, (err, token_user)=> {
         if(err){
           console.log("Error in finding token user");
-          return res.render(path.join(__dirname, "../views/index.ejs"),
-          {"data": {"success": false, "logged_in": false, "message": "Invalid token"}});
+          req.session.locals = {"data": {"success": false,
+                                         "logged_in": false,
+                                         "message": "Invalid token"}};
+          return res.redirect('/home');
         }
         else if (!token_user){
           var token = new Token();
@@ -33,14 +37,19 @@ module.exports = (req, res) => {
           token.save(function(err) {
             if (err){
               console.log('Error in Saving token: '+err);
-              return res.render(path.join(__dirname, "../views/index.ejs"),
-              {"data": {"success": false, "logged_in": false, "message": "Error in saving token"}});
+              req.session.locals = {"data": {"success": false,
+                                             "logged_in": false,
+                                             "message": "Error in saving token"}};
+              return res.redirect('/home');
 
           }
           console.log('Token Registration succesful');
-          res.cookie('token', user_token);
-          return res.render(path.join(__dirname, "../views/index.ejs"),
-          {"data": {"success": true, "logged_in": true, "message": "Logged in succesfully!"}});
+          // res.cookie('token', user_token);
+          req.session.locals = {"data": {"success": true,
+                                         "logged_in": true,
+                                         "token": user_token,
+                                         "message": "Logged in succesfully!"}};
+          return res.redirect('/home');
           });
         }
         else{
@@ -50,14 +59,19 @@ module.exports = (req, res) => {
           }, function(err, updated_user){
               if(err){
                 console.log("Error in updating user token");
-                return res.render(path.join(__dirname, "../views/index.ejs"),
-                {"data": {"success": false, "logged_in": false, "message": "Error in updating token"}});
+                req.session.locals = {"data": {"success": false,
+                                               "logged_in": false,
+                                               "message": "Error in updating token"}};
+                return res.redirect('/home');
               }
               else{
                 console.log('Token Registration succesful');
-                res.cookie('token', user_token);
-                return res.render(path.join(__dirname, "../views/index.ejs"),
-                {"data": {"success": true, "logged_in": true, "message": "logged in succesfully!"}});
+                // res.cookie('token', user_token);
+                req.session.locals = {"data": {"success": true,
+                                               "logged_in": true,
+                                               "token": user_token,
+                                               "message": "Logged in succesfully!"}};
+                return res.redirect('/home');
               }
           });
         }

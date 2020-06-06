@@ -7,12 +7,16 @@ module.exports = (req, res) => {
   passport.authenticate('signup', (err, user, info) => {
     if(user == false){
       // return res.json({"success": false, "account_made": false, "message": info.message});
-      return res.render(path.join(__dirname, "../views/index.ejs"),
-      {"data": {"success": false, "account_made": false, "message": info.message}});
+      req.session.locals = {"data": {"success": false,
+                                     "account_made": false,
+                                     "message": info.message}};
+      return res.redirect('/home');
     }
     else{
-      res.render(path.join(__dirname, "../views/index.ejs"),
-      {"data": {"success": false, "account_made": true, "message": info.message}});
+      req.session.locals = {"data": {"success": false,
+                                     "account_made": true,
+                                     "message": info.message}};
+      return res.redirect('/home');
     }
   })(req, res);
 };

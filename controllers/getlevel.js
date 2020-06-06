@@ -12,7 +12,10 @@ module.exports = (req, res) => {
       throw err;
     }
     else if(!user_token){
-      res.json({"message": "User not logged in"});
+      req.session.locals = {"data": {"success": false,
+                                     "logged_in": false,
+                                     "message": "Invalid token"}};
+      return res.redirect('/home');
     }
     else{
       User.findOne({'email': user_token.email}, function(err2, user){

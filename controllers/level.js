@@ -22,7 +22,10 @@ module.exports = (req, res) => {
           throw err1;
         }
         else if(!user_token){
-          res.json({"message": "User not logged in"});
+          req.session.locals = {"data": {"success": false,
+                                         "logged_in": false,
+                                         "message": "Invalid token"}};
+          return res.redirect('/home');
         }
         else{
           User.findOne({'email': user_token.email}, function(err2, user){
@@ -40,7 +43,7 @@ module.exports = (req, res) => {
                 if(user.current_level + 1 == level.level_num){
                   User.findByIdAndUpdate(user._id, {
                     "current_level": level.level_num,
-                    "$push": {"level_times": Date.now()} 
+                    "$push": {"level_times": Date.now()}
                   }, function(err3, updated_user){
                     if(err3){
                       console.log("Error in updating user");

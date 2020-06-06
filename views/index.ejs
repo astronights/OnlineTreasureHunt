@@ -34,9 +34,9 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-lg-auto">
-                    <li class="nav-item">
-                        <a href="#home" class="nav-link smoothScroll">Home</a>
-                    </li>
+                    <!-- <li class="nav-item">
+                        <a href="/getlevel" class="nav-link smoothScroll">Game</a>
+                    </li> -->
 
                     <li class="nav-item">
                         <a href="#rules" class="nav-link smoothScroll">Rules</a>
@@ -67,7 +67,7 @@
           <% } %>
           <% if(data.hasOwnProperty("logged_in") && (data.logged_in == true)){ %>
             <div class="alert alert-success">
-               <strong>Sign up succesful!</strong> <%= data.message %>
+               <strong>Log in succesful!</strong> <%= data.message %>
              </div>
              <% } %>
             <div class="bg-overlay"></div>
@@ -131,7 +131,7 @@
                         <h2 class="mb-4 text-white" data-aos="fade-up" data-aos-delay="200">Log In</h2>
                         <% if(data.hasOwnProperty("logged_in") && (data.logged_in == false)){ %>
                           <div class="alert alert-danger">
-                             <strong>Sign up unsuccesful!</strong> <%= data.message %>
+                             <strong>Log in unsuccesful!</strong> <%= data.message %>
                            </div>
                            <% } %>
                         <form action="/login" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form" id="login-form">
