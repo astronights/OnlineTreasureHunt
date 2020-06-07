@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 
-     <title>Treasure Hunt</title>
-
+     <title><%= level.level_title %></title>
+     <link rel="shortcut icon" type="image/x-icon" href="..\<%= level.level_favicon %>" />
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
      <meta name="description" content="">
@@ -11,11 +11,11 @@
      <meta name="author" content="">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-     <link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css">
-     <link rel="stylesheet" type="text/css" href="public/css/font-awesome.min.css">
-     <link rel="stylesheet" type="text/css" href="public/css/aos.css">
+     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+     <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+     <link rel="stylesheet" type="text/css" href="/css/aos.css">
 
-     <link rel="stylesheet" type="text/css" href="public/css/tooplate-gymso-style.css">
+     <link rel="stylesheet" type="text/css" href="/css/tooplate-gymso-style.css">
 
 </head>
 <body data-spy="scroll" data-target="#navbarNav" data-offset="50">
@@ -61,43 +61,48 @@
                <div class="container">
                 <div class="col-lg-12 col-12 text-center mb-5">
 
-                     <h2 data-aos="fade-up" data-aos-delay="200" style="color:#f13a11;">Level <%= level.level_num %></h2>
+                     <h2 style="color:#f13a11;">Level <%= level.level_num %></h2>
                 </div>
 
                 <div class="col-lg-12 col-12 text-center">
                   <% for(var i=0; i<level.level_text.length; i++ ){%>
-                    <p class="text-white" data-aos="fade-up" data-aos-delay="200"><%= level.level_text[i] %></p>
+                    <p class="text-white" ><%= level.level_text[i] %></p>
                   <% } %>
                 </div>
                 <div class="row">
                   <% for(var i=0; i<level.level_images.length; i++) {%>
-                  <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="400">
+                  <div class="col-lg-<%= 12/level.level_images.length %> col-md-6 col-12">
                       <div class="class-thumb">
-                          <img src=<%= level.level_images[i]%> class="img-fluid" alt="Class">
+                          <img src= "..\<%= level.level_images[i]%>" class="img-fluid" alt="Class" style="display:block;margin-left: auto;margin-right: auto;"   >
                       </div>
                   </div>
 
                   <% } %>
                 </div>
                </div>
-               <div class="ml-auto col-lg-5 col-md-6 col-12">
-                   <h2 class="mb-4 text-white" data-aos="fade-up" data-aos-delay="200">Log In</h2>
 
-                   <form action="/login" method="post" class="contact-form webform" data-aos="fade-up" data-aos-delay="400" role="form" id="login-form">
-                       <input required type="text" class="form-control" name="email" placeholder="Email">
-                       <input required type="password" class="form-control" name="password" placeholder="Password">
-
-                       <button type="submit" class="form-control submit-button" id="login-submit" name="submit">Log In</button>
-                   </form>
-               </div>
      </section>
 
+     <div class="ml-auto col-lg-5 col-md-6 col-12" style="display:block;margin-left: auto;margin-right: auto;" >
+
+         <form action="/checklevel" method="post" class="contact-form webform" role="form" id="level-form">
+             <input required type="text" class="form-control" name="answer" placeholder="Answer here">
+             <input type="hidden" name="levelnum" value=<%= level.level_num %> />
+
+             <button type="submit" class="form-control submit-button" id="form-submit" name="submit">Submit</button>
+         </form>
+     </div>
+
+     <% for(var j=0; j<level.level_clues.length; j++){ %>
+       <!--  <%= level.level_clues[j]%> -->
+       <% } %>
+
      <!-- SCRIPTS -->
-     <script src="public/js/jquery.min.js"></script>
-     <script src="public/js/bootstrap.min.js"></script>
-     <script src="public/js/aos.js"></script>
-     <script src="public/js/smoothscroll.js"></script>
-     <script src="public/js/custom.js"></script>
+     <script src="/js/jquery.min.js"></script>
+     <script src="/js/bootstrap.min.js"></script>
+     <script src="/js/aos.js"></script>
+     <script src="/js/smoothscroll.js"></script>
+     <script src="/js/custom.js"></script>
 
 </body>
 </html>
