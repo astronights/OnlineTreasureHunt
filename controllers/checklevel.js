@@ -32,26 +32,28 @@ module.exports = (req, res) => {
           res.json({"message": "No such user exists"});
         }
         else{
-          Level.findOne({'level_num': req.body.levelnum+1}, function(err3, level){
+          Level.findOne({'level_num': parseInt(req.body.levelnum)+1}, function(err3, level){
             if(err3){
               console.log("Error in getting level");
               throw err3;
             }
             else if(!level){
-              res.json({"message": "No level exists"});
+              res.json({"message": "No level exists (new)"});
             }
             else{
-              if(level.key == req.body.answer){
-                user.update({"current_level": level.level_num}, {
+              console.log(level.level_key);
+              console.log(req.body.answer);
+              if(level.level_key == req.body.answer){
+                User.updateOne({"email": user.email},
+                               {"current_level": level.level_num},
                   function(err35, newuser){
                     if(err35){
                       console.log("Error in updating user");
                       throw err35;
                     }
                     else{
-                        res.render(path.join(__dirname, "../views/level_v2.ejs"), {level: level});
+                        res.redirect('/level');
                     }
-                  }
                 })
               }
               else{
@@ -61,10 +63,10 @@ module.exports = (req, res) => {
                     throw err4;
                   }
                   else if(!level){
-                    res.json({"message": "No level exists"});
+                    res.json({"message": "No level exists (current)"});
                   }
                   else{
-                    res.render(path.join(__dirname, "../views/level_v2.ejs"), {level: prev, "message": "Wrong answer"});
+                    res.redirect("/level");
                   }
                 })
               }
