@@ -2,8 +2,8 @@ const path = require('path'),
 	Level = require('../models/Level'),
 	Token = require('../models/Token'),
 	User = require('../models/User');
-const { json } = require('express');
 
+//GET /level/:name
 module.exports = async (req, res) => {
 
 	const level_key = req.params.name;

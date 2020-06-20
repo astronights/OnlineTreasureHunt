@@ -4,79 +4,74 @@ var passport = require('../passportFun');
 var crypto = require('crypto');
 const User = require('../models/User');
 const Token = require('../models/Token');
+var bcrypt = require("bcryptjs");
 
-module.exports = (req, res) => {
-  passport.authenticate('login', (err, user, info) => {
-    if(user == false){
-      // req.flash("messages", { "error" : "Invalid username or password" });
-      // res.locals.messages = req.flash();
-      req.session.locals = {"data": {"success": false,
-                                     "logged_in": false,
-                                     "message": "Invalid credentials"}};
-      return res.redirect('/home');
-    }
-    else{
-      const user_token = crypto.randomBytes(20).toString('hex');
-      Token.findOne({'email': user.email}, (err, token_user)=> {
-        if(err){
-          console.log("Error in finding token user");
-          req.session.locals = {"data": {"success": false,
-                                         "logged_in": false,
-                                         "message": "Invalid token"}};
-          return res.redirect('/home');
-        }
-        else if (!token_user){
-          var token = new Token();
-          token.email = user.email;
-          if(token.tokens === undefined || token.tokens.length == 0){
-            token.tokens = [user_token];
-          }
-          else{
-            token.tokens.push(user_token);
-          }
-          token.save(function(err) {
-            if (err){
-              console.log('Error in Saving token: '+err);
-              req.session.locals = {"data": {"success": false,
-                                             "logged_in": false,
-                                             "message": "Error in saving token"}};
-              return res.redirect('/home');
+module.exports = async (req, res) => {
 
-          }
-          console.log('Token Registration succesful');
-          // res.cookie('token', user_token);
-          req.session.locals = {"data": {"success": true,
-                                         "logged_in": true,
-                                         "token": user_token,
-                                         "message": "Logged in succesfully!"}};
-          return res.redirect('/home');
-          });
-        }
-        else{
-          Token.findByIdAndUpdate(token_user._id,{
-            "$push": {"tokens": user_token}
+	const { email, password } = req.body;
 
-          }, function(err, updated_user){
-              if(err){
-                console.log("Error in updating user token");
-                req.session.locals = {"data": {"success": false,
-                                               "logged_in": false,
-                                               "message": "Error in updating token"}};
-                return res.redirect('/home');
-              }
-              else{
-                console.log('Token Registration succesful');
-                // res.cookie('token', user_token);
-                req.session.locals = {"data": {"success": true,
-                                               "logged_in": true,
-                                               "token": user_token,
-                                               "message": "Logged in succesfully!"}};
-                return res.redirect('/home');
-              }
-          });
-        }
-      })
+	const setLocals = (success, logged_in, token, message) => {
+		req.session.locals = {
+			data: {
+				success: success,
+				logged_in: logged_in,
+				token: token,
+				message: message
+			}
+		};
+	}
 
-    }
-  })(req, res);
+	if (!email || !password) {
+		setLocals(false, false, null, "Incorrect credentials");
+		res.redirect('/home');
+		return;
+	}
+
+	let user;
+
+	try {
+		user = await User.findOne({email: email});
+	} catch (e){
+		setLocals(false, false, null, "Internal Server Error");
+		res.redirect('/home');
+		return;
+	}
+
+	if (!user){
+		setLocals(false, false, null, "User not found");
+		res.redirect('/home');
+		return;
+	}
+
+	if (!bcrypt.compareSync(password, user.password)){
+		//Wrong password
+		setLocals(false, false, null, "User not found"); //Better than saying *if* email is wrong or password
+		res.redirect('/home');
+		return;
+	}
+
+	//If we got here, the user checked out. GG
+	const user_token = crypto.randomBytes(20).toString('hex');
+
+	try {
+		await Token.updateOne(
+			{
+				email: user.email
+			},
+			{
+				$push: {tokens: user_token}
+			},
+			{
+				upsert: true //Create if not exist
+			}
+		);
+	} catch (e){
+		setLocals(false, false, null, "Error in saving token");
+		res.redirect('/home');
+		return;
+	}
+
+	setLocals(true, true, user_token, "Logged in successfully!");
+	res.redirect('/home');
+	return;
 };

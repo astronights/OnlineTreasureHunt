@@ -4,6 +4,8 @@ var path = require('path');
 var User = require('../models/User');
 var Token = require('../models/Token');
 
+//check cookie first on a normal call, see if token exists, valid
+
 module.exports = (req, res) => {
     if(req.session.locals){
       res.cookie('token', req.session.locals.data.token);
