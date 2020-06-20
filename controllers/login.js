@@ -1,10 +1,7 @@
-var express = require('express');
-var path = require('path');
-var passport = require('../passportFun');
-var crypto = require('crypto');
-const User = require('../models/User');
-const Token = require('../models/Token');
-var bcrypt = require("bcryptjs");
+const crypto = require('crypto'),
+	User = require('../models/User'),
+	Token = require('../models/Token'),
+	bcrypt = require("bcryptjs");
 
 module.exports = async (req, res) => {
 

@@ -5,9 +5,7 @@ const express = require('express'),
 	bodyParser = require('body-parser'),
 	cookieParser = require('cookie-parser'),
 	routes = require('./routes');
-
-require('./passportFun');
-
+	
 const app = express();
 const http = require('http').Server(app);
 
