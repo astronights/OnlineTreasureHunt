@@ -1,49 +1,77 @@
-var express = require('express');
-var path = require('path');
-var Level = require('../models/Level');
-var Token = require('../models/Token');
-var User = require('../models/User');
+const express = require('express'),
+	path = require('path'),
+	Level = require('../models/Level'),
+	Token = require('../models/Token'),
+	User = require('../models/User');
 
-module.exports = (req, res) => {
-  const token = req.cookies.token;
-  Token.findOne({"tokens": token}, function(err, user_token){
-    if(err){
-      console.log("Error in finding token");
-      throw err;
-    }
-    else if(!user_token){
-      req.session.locals = {"data": {"success": false,
-                                     "logged_in": false,
-                                     "message": "Invalid token"}};
-      return res.redirect('/home');
-    }
-    else{
-      User.findOne({'email': user_token.email}, function(err2, user){
-        console.log(token);
-        console.log(user_token.email);
-        if(err2){
-          console.log("Error in finding user");
-          throw err2;
-        }
-        else if(!user){
-          res.json({"message": "No such user exists"});
-        }
-        else{
-          Level.findOne({'level_num': user.current_level}, function(err3, level){
-            if(err3){
-              console.log("Error in getting level");
-              throw err3;
-            }
-            else if(!level){
-              res.json({"message": "No level exists"});
-            }
-            else{
-              var new_url = '/levels/' + level.level_key;
-              res.redirect(new_url);
-            }
-          });
-        }
-      });
-    }
-  });
+module.exports = async (req, res) => {
+
+	const setLocals = (success, logged_in, message) => {
+		req.session.locals = {
+			data: { success, logged_in, message}
+		};
+	}
+
+	const token = req.cookies.token;
+
+
+	if (!token || token.length != 40) {
+		setLocals(false, false, "Invalid Token. Please log in.");
+		res.redirect('/home');
+		return;
+	}
+
+	let user_token;
+
+	try {
+		user_token = await Token.findOne({tokens: token});
+	} catch(e){
+		setLocals(false, false, "Internal Server Error");
+		res.redirect('/home');
+		return;
+	}
+
+	if (!user_token){
+		setLocals(false, false, "Invalid Token. Please log in.");
+		res.redirect('/home');
+		return;
+	}
+
+	//Token Valid. Find associated user
+	let user;
+
+	try {
+		user = await User.findOne({email: user_token.email});
+	} catch (e){
+		setLocals(false, false, "Internal Server Error");
+		res.redirect('/home');
+		return;
+	}
+
+	if (!user){
+		console.log(`Shits fucked up.`);
+		setLocals(false, false, "User not found");
+		res.redirect('/home');
+		return;
+	}
+
+	let level;
+
+	try {
+		level = await Level.findOne({level_num: user.current_level}).select('level_key');
+	}  catch (e){
+		setLocals(false, false, "Internal Server Error");
+		res.redirect('/home');
+		return;
+	}
+
+	if (!level){
+		console.log(`Shits fucked up.`);
+		setLocals(false, false, "Level not found");
+		res.redirect('/home');
+		return;
+	}
+
+	const new_url = `/levels/${level.level_key}`;
+	res.redirect(new_url);
 }
