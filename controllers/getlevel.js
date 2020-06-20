@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
 	let user_token;
 
 	try {
-		user_token = await Token.findOne({tokens: token});
+		user_token = await Token.findOne({tokens: token}).select('email');
 	} catch(e){
 		setLocals(false, false, "Internal Server Error");
 		res.redirect('/home');
@@ -32,7 +32,11 @@ module.exports = async (req, res) => {
 	}
 
 	if (!user_token){
+		console.log('notfound');
+		//This means they *did* specify a token, but it is definitely wrong. So we clear that cookie
+		res.clearCookie('token');
 		setLocals(false, false, "Invalid Token. Please log in.");
+		//Now the redirect does not have a cookie.
 		res.redirect('/home');
 		return;
 	}
@@ -41,7 +45,7 @@ module.exports = async (req, res) => {
 	let user;
 
 	try {
-		user = await User.findOne({email: user_token.email});
+		user = await User.findOne({email: user_token.email}).select('current_level');
 	} catch (e){
 		setLocals(false, false, "Internal Server Error");
 		res.redirect('/home');

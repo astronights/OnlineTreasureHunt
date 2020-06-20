@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
 	}
 
 	if (!email || !password) {
-		setLocals(false, false, null, "Incorrect credentials");
+		setLocals(false, false, '', "Incorrect credentials");
 		res.redirect('/home');
 		return;
 	}
@@ -29,20 +29,20 @@ module.exports = async (req, res) => {
 	try {
 		user = await User.findOne({email: email});
 	} catch (e){
-		setLocals(false, false, null, "Internal Server Error");
+		setLocals(false, false, '', "Internal Server Error");
 		res.redirect('/home');
 		return;
 	}
 
 	if (!user){
-		setLocals(false, false, null, "User not found");
+		setLocals(false, false, '', "User not found");
 		res.redirect('/home');
 		return;
 	}
 
 	if (!bcrypt.compareSync(password, user.password)){
 		//Wrong password
-		setLocals(false, false, null, "User not found"); //Better than saying *if* email is wrong or password
+		setLocals(false, false, '', "User not found"); //Better than saying *if* email is wrong or password
 		res.redirect('/home');
 		return;
 	}
@@ -63,7 +63,7 @@ module.exports = async (req, res) => {
 			}
 		);
 	} catch (e){
-		setLocals(false, false, null, "Error in saving token");
+		setLocals(false, false, '', "Error in saving token");
 		res.redirect('/home');
 		return;
 	}
