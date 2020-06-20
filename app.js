@@ -1,48 +1,38 @@
-var express = require('express');
-var session = require('express-session');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var cookieParser = require('cookie-parser');
-
 require('dotenv').config();
 
-var routes = require('./routes');
+const express = require('express'),
+	session = require('express-session'),
+	bodyParser = require('body-parser'),
+	cookieParser = require('cookie-parser'),
+	routes = require('./routes');
+
 require('./passportFun');
 
-var app = express();
-var http = require('http').Server(app);
-
-app.set('view engine', 'ejs');
+const app = express();
+const http = require('http').Server(app);
 
 const mimeTypes = {
   'text/css': ['css'],
   'application/javascript': ['js']
 }
 
+app.set('view engine', 'ejs');
 app.use(express.static("public/"));
 app.use(cookieParser());
-//
-// app.use(session({ cookie: { maxAge: 60000 },
-//                   secret: process.env.SESSION_SECRET,
-//                   resave: false,
-//                   saveUninitialized: false}));
-//
+
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }));
-// app.use(function (req, res, next) {
-//     res.locals.messages = require('express-messages')(req, res);
-//     // next();
-// });
-
-// app.use(passport.initialize());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/', routes);
 
-http.listen(3000, function(){
-    console.log("Server started on port 3000");
+const IP = process.env.IP || '127.0.0.1';
+const PORT = process.env.PORT || 3000;
+
+http.listen(PORT, IP, function(){
+    console.log(`Server started on port ${PORT}`);
 });
