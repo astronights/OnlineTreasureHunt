@@ -483,7 +483,8 @@ https://www.tooplate.com/view/2119-gymso-fitness
   -----------------------------------------*/
 
   .about {
-    background: var(--dark-color);
+    background: url("hv.jpg");
+    background-size: cover;
   }
 
   .about-working-hours {
