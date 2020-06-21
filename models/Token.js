@@ -1,11 +1,12 @@
 const mongoose = require('../db');
 
 const tokenSchema = mongoose.Schema({
-    email: String,
-    tokens: [String],
-    created: {
-      type: Date,
-      default: Date.now
-}});
+	email: String,
+	tokens: [String],
+	created: {
+		type: Date,
+		default: Date.now
+	}
+});
 
 module.exports = mongoose.model('Token', tokenSchema, 'tokens');

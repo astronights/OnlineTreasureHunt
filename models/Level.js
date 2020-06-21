@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
     level_text: [String],
     level_images: [String],
     level_favicon: String,
-    level_times: [{
+    level_times: [{ //not needed
       user_id: String,
       user_time: Date,
     }],
