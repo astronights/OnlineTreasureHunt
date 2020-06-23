@@ -477,12 +477,18 @@ https://www.tooplate.com/view/2119-gymso-fitness
     padding: 1rem;
   }
 
+  .about {
+    background: var(--dark-color);
+    background-size: cover;
+  }
+
+
 
   /*---------------------------------------
       ABOUT & TEAM
   -----------------------------------------*/
 
-  .about {
+  .aboutind {
     background: url("hv.jpg");
     background-size: cover;
   }

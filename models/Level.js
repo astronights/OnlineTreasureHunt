@@ -17,4 +17,4 @@ const userSchema = mongoose.Schema({
     level_extras: [String]
 });
 
-module.exports = mongoose.model('Level', userSchema, 'levels');
+module.exports = mongoose.model('Level', userSchema, 'samples');
