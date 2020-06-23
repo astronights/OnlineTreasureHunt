@@ -1,7 +1,9 @@
 const path = require('path'),
 	Level = require('../models/Level'),
 	Token = require('../models/Token'),
-	User = require('../models/User');
+	User = require('../models/User'),
+	Attempt = require('../models/Attempt'),
+	Log = require('../models/Log');
 
 //GET /level/:name
 module.exports = async (req, res) => {
@@ -9,28 +11,31 @@ module.exports = async (req, res) => {
 	const level_key = req.params.name;
 	const token = req.cookies.token;
 
-	let level;
+	//some fucker who is not logged in trying to fuck with the endpoint. Scare them off
+	if (!token || token.length != 40){
+
+		res.status(401).send({
+			error: "Unauthorized",
+			ip: req.ip,
+			message: "Your IP has been logged."
+		});
+
+		let log = new Log();
+		log.ip = req.ip;
 	
-	try {
-		level = await Level.findOne({level_key: level_key});
-	} catch (e){
-		res.status(500).json({
-			error: 'Failed to query DB'
-		});
-
-		return;
-	}
-
-	if (!level){
-		res.json({
-			error: 'Incorrect answer'
-		});
-
+		if (req.path.length < 100){
+			log.path = req.path;
+		} else {
+			log.path = req.path.substr(0, 100);
+		}
+	
+		log.save();
 		return;
 	}
 
 	let user_token;
 
+	//Ok its set, but are they legit?
 	try {
 		user_token = await Token.findOne({tokens: token});
 	} catch (e){
@@ -41,6 +46,7 @@ module.exports = async (req, res) => {
 		return;
 	}
 
+	//fuck off
 	if (!user_token){
 
 		req.session.locals = {
@@ -56,6 +62,7 @@ module.exports = async (req, res) => {
 
 	let user;
 
+	//sanity check but actually bad programming practice
 	try {
 		user = await User.findOne({email: user_token.email});
 	} catch (e){
@@ -66,10 +73,38 @@ module.exports = async (req, res) => {
 		return;
 	}
 
+	//this should never happen tbh. Since our tokens dont expire KEK
 	if (!user){
 		res.status(404).json({
 			"error": "User not found"
 		});
+
+		return;
+	}
+
+	let level;
+	
+	try {
+		level = await Level.findOne({level_key: level_key});
+	} catch (e){
+		res.status(500).json({
+			error: 'Failed to query DB'
+		});
+
+		return;
+	}
+
+	//What a chomu
+	if (!level){
+		res.json({
+			error: 'Incorrect answer'
+		});
+
+		let attempt = new Attempt();
+		attempt.email = user.email;
+		attempt.value = level_key;
+		attempt.level = user.current_level;
+		attempt.save();
 
 		return;
 	}

@@ -21,14 +21,14 @@ var addlevelpost = require('./controllers/addlevelpost');
 
 // router.get('/error', error);
 router.get('/home', home);
-// router.get('/levels/:name', level);
+router.get('/levels/:name', level);
 router.get('/leaderboard', leaderboard);
-// router.get('/getlevel', getlevel);
-// router.get('/level_data/:name', level_data);
+router.get('/getlevel', getlevel);
+router.get('/level_data/:name', level_data);
 // router.get('/level', formlevel);
 router.post('/contact-details', contact);
 router.post('/signup', signup);
-// router.post('/login', login);
+router.post('/login', login);
 // router.post('/checklevel', checklevel);
 
 // router.get('/addlevel', addlevelget);
