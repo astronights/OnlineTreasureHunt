@@ -82,6 +82,12 @@
                </div>
      </section>
 
+     <div class="col-lg-12 col-12 text-center">
+       <% for(var i=0; i<level.level_hidden.length; i++ ){%>
+         <p data-aos="fade-up" data-aos-delay="200"><%= level.level_hidden[i] %></p>
+       <% } %>
+     </div>
+
      <% for(var j=0; j<level.level_clues.length; j++){ %>
        <!--  <%= level.level_clues[j]%> -->
        <% } %>
