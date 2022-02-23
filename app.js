@@ -1,10 +1,10 @@
 require("dotenv").config();
 
-const express = require("express"),
-  session = require("express-session"),
-  bodyParser = require("body-parser"),
-  cookieParser = require("cookie-parser"),
-  routes = require("./routes");
+const express = require("express");
+const session = require("express-session");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const routes = require("./routes");
 
 const app = express();
 const http = require("http").Server(app);
@@ -15,7 +15,7 @@ const mimeTypes = {
 };
 
 app.set("view engine", "ejs");
-app.use(express.static("public/"));
+app.use(express.static("./public/"));
 app.use(cookieParser());
 
 app.use(
