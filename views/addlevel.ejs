@@ -1,83 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Treasure Hunt</title>
 
-       <title>Treasure Hunt</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
 
-       <meta charset="UTF-8">
-       <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-       <meta name="description" content="">
-       <meta name="keywords" content="">
-       <meta name="author" content="">
-       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/aos.css" />
 
-       <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-       <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-       <link rel="stylesheet" type="text/css" href="css/aos.css">
-
-       <link rel="stylesheet" type="text/css" href="css/tooplate-gymso-style.css">
-       <link rel="stylesheet" type="text/css" href="css/styles.css">
-
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/tooplate-gymso-style.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
   </head>
 
-  <body onload="authAdmin()" data-offset="50">
+  <body data-offset="50">
     <section class="addlevel section" id="addlevel">
-         <div class="container">
-           <% if(success == true){ %>
-             <div class="alert alert-success">
-                <strong>Level add succesful!</strong>
-              </div>
-              <% } %>
-              <% if(success == false){ %>
-                <div class="alert alert-danger">
-                   <strong>Level not added</strong>
-                 </div>
-                 <% } %>
-              <div class="row">
+      <div class="container">
+        <% if(success == true){ %>
+        <div class="alert alert-success">
+          <strong>Level add succesful!</strong>
+        </div>
+        <% } %> <% if(success == false){ %>
+        <div class="alert alert-danger">
+          <strong>Level not added</strong>
+        </div>
+        <% } %>
+        <div class="row">
+          <div class="mb-lg-0 mb-4 col-lg-5 col-md-10 mx-auto col-12">
+            <h2 class="mb-4 text-white">Add Level</h2>
 
-                  <div class="mb-lg-0 mb-4 col-lg-5 col-md-10 mx-auto col-12">
-                      <h2 class="mb-4 text-white">Add Level</h2>
-
-                      <form action="/addlevel" method="post" enctype="multipart/form-data" role="form" id="level-form">
-                        <input required type="number" class="form-control" name="lnum" placeholder="Level Number">
-                        <input required type="text" class="form-control" name="lkey" placeholder="Level key">
-                        <input required type="text" class="form-control" name="ltitle" placeholder="Level title">
-                        <textarea form="level-form" required rows="3" cols="25" class="form-control" name="ltext" placeholder="Level text"></textarea>
-                        <textarea form="level-form" required rows="3" cols="25" class="form-control" name="lhiddentext" placeholder="Level hidden text"></textarea>
-                        <textarea form="level-form" required rows="3" cols="25" class="form-control" name="lhint" placeholder="Level hints"></textarea>
-                        <table>
-                          <tr>
-                            <td>
-                              <strong class="text-white">Favicon: </strong>
-                            </td>
-                            <td>
-                              <input type="file" name="favicon" class="text-white">
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <strong class="text-white">Images: </strong>
-                            </td>
-                            <td>
-                              <input type="file" name="images" class="text-white" multiple>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <strong class="text-white">Additional files: </strong>
-                            </td>
-                            <td>
-                              <input type="file" name="extras" class="text-white" multiple>
-                            </td>
-                          </tr>
-                        </table>
-                        <button type="submit" class="form-control submit-button" id="form-submit" name="submit">Add Level</button>
-                      </form>
-                  </div>
-                </div>
+            <form
+              action="/addlevel"
+              method="post"
+              enctype="multipart/form-data"
+              role="form"
+              id="level-form"
+            >
+              <input
+                required
+                type="text"
+                class="form-control"
+                name="auth"
+                placeholder="Secret"
+              />
+              <input
+                required
+                type="number"
+                class="form-control"
+                name="lnum"
+                placeholder="Level Number"
+              />
+              <input
+                required
+                type="text"
+                class="form-control"
+                name="lkey"
+                placeholder="Level key"
+              />
+              <input
+                required
+                type="text"
+                class="form-control"
+                name="ltitle"
+                placeholder="Level title"
+              />
+              <textarea
+                form="level-form"
+                required
+                rows="3"
+                cols="25"
+                class="form-control"
+                name="ltext"
+                placeholder="Level text"
+              ></textarea>
+              <textarea
+                form="level-form"
+                required
+                rows="3"
+                cols="25"
+                class="form-control"
+                name="lhiddentext"
+                placeholder="Level hidden text"
+              ></textarea>
+              <textarea
+                form="level-form"
+                required
+                rows="3"
+                cols="25"
+                class="form-control"
+                name="lhint"
+                placeholder="Level hints"
+              ></textarea>
+              <table>
+                <tr>
+                  <td>
+                    <strong class="text-white">Favicon: </strong>
+                  </td>
+                  <td>
+                    <input type="file" name="favicon" class="text-white" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong class="text-white">Images: </strong>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      name="images"
+                      class="text-white"
+                      multiple
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong class="text-white">Additional files: </strong>
+                  </td>
+                  <td>
+                    <input
+                      type="file"
+                      name="extras"
+                      class="text-white"
+                      multiple
+                    />
+                  </td>
+                </tr>
+              </table>
+              <button
+                type="submit"
+                class="form-control submit-button"
+                id="form-submit"
+                name="submit"
+              >
+                Add Level
+              </button>
+            </form>
           </div>
-      </section>
+        </div>
+      </div>
+    </section>
 
-      <script src="js/addlevel.js"></script>
-    </body>
+    <script src="js/addlevel.js"></script>
+  </body>
 </html>
