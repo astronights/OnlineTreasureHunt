@@ -22,4 +22,8 @@ const userSchema = mongoose.Schema({
   level_extras: [String],
 });
 
+<<<<<<< HEAD
 module.exports = mongoose.model("Level", userSchema, process.env.LEVELS);
+=======
+module.exports = mongoose.model('Level', userSchema, 'samples');
+>>>>>>> deploy
