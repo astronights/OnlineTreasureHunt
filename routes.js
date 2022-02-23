@@ -25,7 +25,7 @@ router.get("/levels/:name", level);
 router.get("/leaderboard", leaderboard);
 router.get("/getlevel", getlevel);
 router.get("/level_data/:name", level_data);
-router.get("/level", formlevel);
+// router.get("/level", formlevel);
 
 router.post("/signup", signup);
 router.post("/login", login);
