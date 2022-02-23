@@ -33,6 +33,6 @@ app.use("/", routes);
 const HOST = process.env.HOST || "127.0.0.1";
 const PORT = process.env.PORT || 3000;
 
-http.listen(PORT, HOST, function () {
+http.listen(PORT, function () {
   console.log(`Server started on port ${PORT}`);
 });
