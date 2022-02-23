@@ -20,6 +20,7 @@ var addlevelget = require("./controllers/addlevelget");
 var addlevelpost = require("./controllers/addlevelpost");
 
 // router.get('/error', error);
+router.get("/", home);
 router.get("/home", home);
 router.get("/levels/:name", level);
 router.get("/leaderboard", leaderboard);

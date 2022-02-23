@@ -53,9 +53,8 @@ app.use((req, res, next) => {
   });
 });
 
-const IP = process.env.IP || "127.0.0.1";
 const PORT = process.env.PORT || 3000;
 
-http.listen(PORT, IP, function () {
+http.listen(PORT, function () {
   console.log(`Server started on port ${PORT}`);
 });
