@@ -2,7 +2,7 @@
 
 An online treasure hunt structured as a riddle with incremental levels. This is supported with a live dashboard to track players.
 
-The set of questions can be uploaded as a static file along with all of the relevant media.
+The set of questions can be upserted to a MongoDB database, with the relevant media uploaded as static files.
 
 ## Puzzle Format
 
@@ -14,7 +14,14 @@ The puzzle is split into multiple levels
 
 ## Technology Stack
 
-NodeJS and eJS are primarily used to build this website.
+NodeJS is primarily used to build this website. 
+
+Additional functionalities are implemented with:
+
+- Passport JS (Authentication)
+- BCrypt (Cryptography)
+- MongoDB (Level Details)
+- eJS (Serving static web pages)
 
 ## Running the App
 
