@@ -32,7 +32,7 @@
     "flash": "^1.1.0",
     "mime": "^2.4.6",
     "mongoose": "^8.22.1",
-    "multer": "^2.1.1",
+    "multer": "^2.2.0",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0"
   }
